@@ -1,0 +1,72 @@
+{
+  "name": "app/client",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "app/client/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/vite:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/app/client"
+      },
+      "configurations": {
+        "development": {
+          "mode": "development"
+        },
+        "production": {
+          "mode": "production"
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/vite:dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "app/client:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "app/client:build:development",
+          "hmr": true
+        },
+        "production": {
+          "buildTarget": "app/client:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "preview": {
+      "executor": "@nx/vite:preview-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "app/client:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "app/client:build:development"
+        },
+        "production": {
+          "buildTarget": "app/client:build:production"
+        }
+      }
+    },
+    "test": {
+      "executor": "@nx/vite:test",
+      "outputs": ["{options.reportsDirectory}"],
+      "options": {
+        "passWithNoTests": true,
+        "reportsDirectory": "../../coverage/app/client"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["app/client/**/*.{ts,tsx,js,jsx}"]
+      }
+    }
+  },
+  "tags": []
+}
